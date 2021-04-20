@@ -7,7 +7,6 @@
 import neatCsv from 'neat-csv';
 import fs from 'fs';
 function analyseFiles(inputPaths: string[], outputPath: string) {
-  //console.log('Complete the implementation in src/analysis.ts');
   for (const input of inputPaths) {
     fs.readFile(input, async (err, data) => {
       // error handling
@@ -16,14 +15,14 @@ function analyseFiles(inputPaths: string[], outputPath: string) {
         return;
       }
       const emails = await neatCsv(data);
-      //emails
+
       // Getting all emails into an array
       const emailsArray: string[] = [];
       for (const email of emails) {
         const currentEmail = email.Emails;
         emailsArray.push(currentEmail);
       }
-      //console.log(emailsArray)
+
       // Validating the emails with a regex
       const validEmails: string[] = [];
       const regex = /^[a-zA-Z]\S+@\S+\.\S+[a-z]$/;
@@ -32,7 +31,7 @@ function analyseFiles(inputPaths: string[], outputPath: string) {
           validEmails.push(email);
         }
       });
-      //console.log(validEmails)
+
       // Getting all domains
       const emailDomains: string[] = [];
       validEmails.forEach((email) => {
@@ -40,7 +39,7 @@ function analyseFiles(inputPaths: string[], outputPath: string) {
         const domainName: string = email.slice(index);
         emailDomains.push(domainName);
       });
-      //console.log(emailDomains)
+
       // Getting only the unique domains in an array
       const uniqueDomains: string[] = [...new Set(emailDomains)];
       //console.log(uniqueDomains)
@@ -54,23 +53,21 @@ function analyseFiles(inputPaths: string[], outputPath: string) {
         }
       });
 
-      //console.log(domainCount)
       // Creating an interface Type to format my result
-      interface Format {
-        'valid-domains': string[];
-        totalEmailsParsed: number;
-        totalValidEmails: number;
-        categories: Record<string, number>;
-      }
+      // interface Format {
+      //   'valid-domains': string[];
+      //   totalEmailsParsed: number;
+      //   totalValidEmails: number;
+      //   categories: Record<string, number>;
+      // }
       // Creating my result using inteface Type
-      const result: Format = {};
+      const result: Record<string, unknown> = {};
       result['valid-domains'] = uniqueDomains;
       result.totalEmailsParsed = emailsArray.length;
       result.totalValidEmails = validEmails.length;
       result.categories = domainCount;
-      //console.log(result)
+
       const jsonResult: string = JSON.stringify(result, null, 2);
-      //console.log(jsonResult)
 
       // Writing to a file
       fs.writeFile(outputPath, jsonResult, (err) => {

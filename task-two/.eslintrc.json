@@ -7,7 +7,7 @@
     "eqeqeq": "error",
     "no-warning-comments": "warn",
     "no-var": "error",
-    "prefer-const": "error",
+
     "eol-last": "error"
   },
   "overrides": [

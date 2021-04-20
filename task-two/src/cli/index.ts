@@ -3,7 +3,8 @@ import { sync } from 'glob';
 import chalk from 'chalk';
 import path from 'path';
 
-import { analysis, validation } from '..';
+import analysis from '../analysis';
+import validation from '../validation';
 
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const { version } = require('../../package.json');
