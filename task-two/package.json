@@ -23,6 +23,7 @@
     "glob": "7.1.6",
     "got": "11.5.2",
     "lodash": "4.17.20",
+    "neat-csv": "6.0.1",
     "rxjs": "6.6.2",
     "semver": "7.3.2",
     "v8-compile-cache": "2.1.1"
