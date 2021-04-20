@@ -12,8 +12,8 @@ class FileTreeNode {
   }
 
   addChild(node) {
-    if (this.type !== 'DIRECTORY') {
-      throw 'Cannot add child node to a non-directory node';
+    if (this.type !== "DIRECTORY") {
+      throw "Cannot add child node to a non-directory node";
     }
 
     this.children.push(node);
