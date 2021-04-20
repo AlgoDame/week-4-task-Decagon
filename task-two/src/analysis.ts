@@ -8,7 +8,7 @@ import neatCsv from 'neat-csv';
 import fs from 'fs';
 function analyseFiles(inputPaths: string[], outputPath: string) {
   //console.log('Complete the implementation in src/analysis.ts');
-  for (let input of inputPaths) {
+  for (const input of inputPaths) {
     fs.readFile(input, async (err, data) => {
       // error handling
       if (err) {
@@ -18,15 +18,15 @@ function analyseFiles(inputPaths: string[], outputPath: string) {
       const emails = await neatCsv(data);
       //emails
       // Getting all emails into an array
-      let emailsArray: string[] = [];
-      for (let email of emails) {
-        let currentEmail = email.Emails;
+      const emailsArray: string[] = [];
+      for (const email of emails) {
+        const currentEmail = email.Emails;
         emailsArray.push(currentEmail);
       }
       //console.log(emailsArray)
       // Validating the emails with a regex
-      let validEmails: string[] = [];
-      let regex: RegExp = /^[a-zA-Z]\S+@\S+\.\S+[a-z]$/;
+      const validEmails: string[] = [];
+      const regex = /^[a-zA-Z]\S+@\S+\.\S+[a-z]$/;
       emailsArray.forEach((email) => {
         if (regex.test(email)) {
           validEmails.push(email);
@@ -34,18 +34,18 @@ function analyseFiles(inputPaths: string[], outputPath: string) {
       });
       //console.log(validEmails)
       // Getting all domains
-      let emailDomains: string[] = [];
+      const emailDomains: string[] = [];
       validEmails.forEach((email) => {
-        let index: number = email.indexOf('@') + 1;
-        let domainName: string = email.slice(index);
+        const index: number = email.indexOf('@') + 1;
+        const domainName: string = email.slice(index);
         emailDomains.push(domainName);
       });
       //console.log(emailDomains)
       // Getting only the unique domains in an array
-      let uniqueDomains: string[] = [...new Set(emailDomains)];
+      const uniqueDomains: string[] = [...new Set(emailDomains)];
       //console.log(uniqueDomains)
       // Getting count for each domain name
-      let domainCount: Record<string, number> = {};
+      const domainCount: Record<string, number> = {};
       emailDomains.forEach((domain) => {
         if (!domainCount[domain]) {
           domainCount[domain] = 1;
@@ -63,13 +63,13 @@ function analyseFiles(inputPaths: string[], outputPath: string) {
         categories: Record<string, number>;
       }
       // Creating my result using inteface Type
-      let result: Format = {};
+      const result: Format = {};
       result['valid-domains'] = uniqueDomains;
       result.totalEmailsParsed = emailsArray.length;
       result.totalValidEmails = validEmails.length;
       result.categories = domainCount;
       //console.log(result)
-      let jsonResult: string = JSON.stringify(result, null, 2);
+      const jsonResult: string = JSON.stringify(result, null, 2);
       //console.log(jsonResult)
 
       // Writing to a file

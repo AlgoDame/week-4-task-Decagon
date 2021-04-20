@@ -54,7 +54,7 @@ function validateEmailAddresses(inputPath: string[], outputFile: string) {
       validEmails.forEach((email) => {
         let index: number = email.indexOf("@") + 1;
         let domain: string = email.slice(index);
-        if (!checkedDomains.includes(domain)){
+        if (!checkedDomains.includes(domain)) {
           dns.resolveMx(domain, (err, addresses) => {
             if (err) {
               console.error(err);
@@ -68,24 +68,15 @@ function validateEmailAddresses(inputPath: string[], outputFile: string) {
                 return;
               }
 
-            } )
+            })
 
 
-          }
-
-
-        })
+          })
+        }
       })
-
-
-
-
-
-
-
     })
-
   }
 }
+
 
 export default validateEmailAddresses;
